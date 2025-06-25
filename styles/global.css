@@ -10,7 +10,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-/* TODO: Add the 'Roboto' font from Google fonts and add it as a global CSS var called `--font-primary` */
+/* TODO: Add the 'Roboto' font from Google fonts and add it as a global CSS var called `--font-primary`  :DONE*/
 /* TODO: Make application responsive. It is already for the most part, but it is not optimal for smaller screens.
 * - Making the application responsive using the Mobile First principle.
 */
@@ -26,6 +26,20 @@ code {
   --color-text-light: #72787d;
   --width-input: 20rem;
   --width-content: 30rem;
+  --font-primary: 'Roboto', sans-serif;
+
+  --color-primary: #0070f3;
+  --color-primary-dark: #005bb5;
+  --color-on-primary: #ffffff;
+
+  --color-secondary: #eaeaea;
+  --color-secondary-dark: #cacaca;
+  --color-on-secondary: #000000;
+}
+
+.junge-regular {
+  font-family: 'Junge', cursive;
+  font-weight: 400;
 }
 
 * {
@@ -61,4 +75,10 @@ fieldset {
 
 legend {
   color: var(--color-text-light);
+}
+
+@media (max-width: 600px) {
+  .main {
+    background: var(--color-background);
+  }
 }
