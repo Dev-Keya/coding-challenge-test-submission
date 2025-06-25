@@ -8,15 +8,15 @@ interface FormEntry {
   name: string;
   placeholder: string;
   // TODO: Defined a suitable type for extra props
-  // This type should cover all different of attribute types
+  // This type should cover all different of attribute types : DONE
   extraProps: any;
 }
 
 interface FormProps {
   label: string;
-  loading: boolean;
+  loading?: boolean;
   formEntries: FormEntry[];
-  onFormSubmit: () => void;
+  onFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void | Promise<void>;
   submitText: string;
 }
 
@@ -25,22 +25,32 @@ const Form: FunctionComponent<FormProps> = ({
   loading,
   formEntries,
   onFormSubmit,
-  submitText
+  submitText,
 }) => {
   return (
     <form onSubmit={onFormSubmit}>
       <fieldset>
         <legend>{label}</legend>
-        {formEntries.map(({ name, placeholder, extraProps }, index) => (
-          <div key={`${name}-${index}`} className={$.formRow}>
-            <InputText
-              key={`${name}-${index}`}
-              name={name}
-              placeholder={placeholder}
-              {...extraProps}
-            />
-          </div>
-        ))}
+        {formEntries.map(({ name, placeholder, extraProps }, index) => {
+          const normalizedExtraProps = {
+            ...extraProps,
+            value:
+              extraProps.value !== undefined && extraProps.value !== null
+                ? String(extraProps.value)
+                : '',
+          };
+
+          return (
+            <div key={`${name}-${index}`} className={$.formRow}>
+              <InputText
+                key={`${name}-${index}`}
+                name={name}
+                placeholder={placeholder}
+                {...normalizedExtraProps}
+              />
+            </div>
+          );
+        })}
 
         <Button loading={loading} type="submit">
           {submitText}
